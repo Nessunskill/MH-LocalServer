@@ -132,20 +132,21 @@ class transactionService {
         for (let i = 0; i < incomeTransactions.length; i++) {
             const income = await incomeService.getIncome(incomeTransactions[i].fromId);
             const wallet = await walletsService.getWallet(incomeTransactions[i].toId);
+
             const transactionAmount = incomeTransactions[i].amount;
             const currentTransaction = incomeTransactions[i];
 
             if (income) {
                 income.amount = income.amount - transactionAmount;
+                income.save();
             }
 
             if (wallet) {
                 wallet.amount = wallet.amount - transactionAmount;
-            }
-
-            income.save();
-            wallet.save();
-            await Transaction.deleteOne(currentTransaction);
+                wallet.save();
+            }  
+            
+            await this.deleteTransaction(currentTransaction.id);
         }
 
         for (let i = 0; i < transferTransactions.length; i++) {
@@ -156,15 +157,15 @@ class transactionService {
 
             if (fromWallet) {
                 fromWallet.amount = fromWallet.amount + transactionAmount;
+                fromWallet.save();
             }
 
             if (toWallet) {
                 toWallet.amount = toWallet.amount - transactionAmount;
+                toWallet.save();
             }
 
-            fromWallet.save();
-            toWallet.save();
-            await Transaction.deleteOne(currentTransaction);
+            await this.deleteTransaction(currentTransaction.id);
         }
 
         for (let i = 0; i < expenseTransactions.length; i++) {
@@ -175,15 +176,15 @@ class transactionService {
 
             if (wallet) {
                 wallet.amount = wallet.amount + transactionAmount;
+                wallet.save();
             }
 
             if (expense) {
                 expense.amount = expense.amount - transactionAmount;
+                expense.save();
             }
-
-            wallet.save();
-            expense.save();
-            await Transaction.deleteOne(currentTransaction);
+            
+            await this.deleteTransaction(currentTransaction.id);
         }
     }
 

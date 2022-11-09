@@ -77,11 +77,15 @@ class expenseService {
         const fromWallet = await walletsService.getWallet(fromWalletId);
         const toExpense = await this.getExpenseCategory(toExpenseId);
 
-        fromWallet.amount = fromWallet.amount - amount;
-        toExpense.amount = toExpense.amount + amount;
-
-        fromWallet.save();
-        toExpense.save();
+        if (fromWallet) {
+            fromWallet.save();
+            fromWallet.amount = fromWallet.amount - amount;
+        }
+        
+        if (toExpense) {
+            toExpense.save();
+            toExpense.amount = toExpense.amount + amount;
+        }
 
         return {
             fromWallet,

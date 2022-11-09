@@ -77,11 +77,15 @@ class incomeSerivce {
         const fromIncome = await this.getIncome(fromIncomeId);
         const toWallet = await walletsService.getWallet(toWalletId);
 
-        fromIncome.amount = fromIncome.amount + amount;
-        toWallet.amount = toWallet.amount + amount;
-
-        fromIncome.save();
-        toWallet.save();
+        if (fromIncome) {
+            fromIncome.amount = fromIncome.amount + amount;
+            fromIncome.save();
+        }
+        
+        if (toWallet) {
+            toWallet.amount = toWallet.amount + amount;
+            toWallet.save();
+        }
 
         return {
             fromIncome,

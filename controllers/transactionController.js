@@ -104,16 +104,34 @@ class transactionCategory {
 
             switch(transaction.transactionType) {
                 case "income":
-                    if (fromDB) fromDB.amount = fromDB.amount - Number(transaction.amount) + Number(newAmount);
-                    if (toDB) toDB.amount = toDB.amount - Number(transaction.amount) + Number(newAmount);
+                    if (fromDB) {
+                        fromDB.amount = fromDB.amount - Number(transaction.amount) + Number(newAmount);
+                        fromDB.save();
+                    }
+                    if (toDB) {
+                        toDB.amount = toDB.amount - Number(transaction.amount) + Number(newAmount);
+                        toDB.save();
+                    }
                     break;
                 case "transfer":
-                    if (fromDB) fromDB.amount = fromDB.amount + Number(transaction.amount) - Number(newAmount);
-                    if (toDB) toDB.amount = toDB.amount - Number(transaction.amount) + Number(newAmount);
+                    if (fromDB) {
+                        fromDB.amount = fromDB.amount + Number(transaction.amount) - Number(newAmount);
+                        fromDB.save();
+                    }
+                    if (toDB) {
+                        toDB.amount = toDB.amount - Number(transaction.amount) + Number(newAmount);
+                        toDB.save();
+                    }
                     break;
                 case "expense":
-                    if (fromDB) fromDB.amount = fromDB.amount + Number(transaction.amount) - Number(newAmount);
-                    if (toDB) toDB.amount = toDB.amount - Number(transaction.amount) + Number(newAmount);
+                    if (fromDB) {
+                        fromDB.amount = fromDB.amount + Number(transaction.amount) - Number(newAmount);
+                        fromDB.save();
+                    }
+                    if (toDB) {
+                        toDB.amount = toDB.amount - Number(transaction.amount) + Number(newAmount);
+                        toDB.save();
+                    }
                     break;
                 default:
                     break;

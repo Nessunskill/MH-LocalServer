@@ -76,11 +76,15 @@ class walletsSerivce {
         const fromWallet = await this.getWallet(fromWalletId);
         const toWallet = await this.getWallet(toWalletId);
 
-        fromWallet.amount = fromWallet.amount - amount;
-        toWallet.amount = toWallet.amount + amount;
-
-        fromWallet.save();
-        toWallet.save();
+        if (fromWallet) {
+            fromWallet.amount = fromWallet.amount - amount;
+            fromWallet.save();
+        }
+        
+        if (toWallet) {
+            toWallet.amount = toWallet.amount + amount;
+            toWallet.save();
+        }
 
         return {
             fromWallet,

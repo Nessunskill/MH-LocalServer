@@ -67,6 +67,7 @@ class categoriesChangesController {
             const {categoryType} = request.body;
 
             const category = await categoryService.findCategoryInDB(id);
+
             const transactions = await transactionService.findAllTransactions(category);
             await transactionService.removeSelectedTransactions(transactions);
 
