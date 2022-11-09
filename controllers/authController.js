@@ -2,9 +2,6 @@ import authService from '../services/authService.js';
 import tokenService from '../services/tokenService.js';
 import User from '../models/User.js';
 import Token from '../models/Token.js';
-import Icons from '../models/Icons.js';
-import Wallet from '../models/Wallet.js';
-import Income from '../models/Income.js';
 import expenseService from '../services/expenseService.js';
 import { nanoid } from 'nanoid';
 import incomeService from '../services/incomeService.js';
@@ -40,9 +37,12 @@ class authController {
             const {username, password} = request.body;
             const user = await authService.login(username, password);
             
-            const tokens = tokenService.createTokens({username});
-            response.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true});
-            tokenService.saveToken(user.id, tokens.refreshToken);
+            const tokens = await tokenService.createTokens({username});
+            await response.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true});
+            
+            console.log(tokens.refreshToken)
+
+            await tokenService.saveToken(user.id, tokens.refreshToken);
 
             response.status(200).json({
                 status: 200,
