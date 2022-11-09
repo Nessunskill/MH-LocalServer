@@ -17,16 +17,16 @@ class authController {
 
             const user = await authService.registration(username, password);
      
-            await incomeService.createIncome(user._id, "Зарплата", "https://imageup.ru/img67/4045630/card.png", nanoid(), "MDL");
-            await incomeService.createIncome(user._id, "Фриланс", "https://imageup.ru/img247/4045638/invest.png", nanoid(), "USD");
+            await incomeService.createIncome(user._id, "Зарплата", "https://i.ibb.co/Y2Q4SVY/money5.png", nanoid(), "MDL");
+            await incomeService.createIncome(user._id, "Фриланс", "https://i.ibb.co/4jDJtkJ/money4.png", nanoid(), "USD");
 
-            await walletsService.createWallet(user._id, "Наличные", "https://imageup.ru/img81/4045639/moneybag.png", nanoid(), "MDL");
-            await walletsService.createWallet(user._id, "Карта евро", "https://imageup.ru/img67/4045630/card.png", nanoid(), "EUR");
+            await walletsService.createWallet(user._id, "Наличные", "https://i.ibb.co/dPG6H1X/money9.png", nanoid(), "MDL");
+            await walletsService.createWallet(user._id, "Карта евро", "https://i.ibb.co/J2dTSJK/credit-card-4.png", nanoid(), "EUR");
 
-            await expenseService.createExpenseCategory(user._id, "Еда вне дома", "https://imageup.ru/img38/4045635/fastfood.png", nanoid(), "MDL");
-            await expenseService.createExpenseCategory(user._id, "Проезд", "https://imageup.ru/img50/4045644/taxi.png", nanoid(), "MDL");
-            await expenseService.createExpenseCategory(user._id, "Видеоигры", "https://imageup.ru/img210/4045636/games.png", nanoid(), "MDL");
-            await expenseService.createExpenseCategory(user._id, "Сотовая связь", "https://imageup.ru/img281/4045633/cellular.png", nanoid(), "MDL");
+            await expenseService.createExpenseCategory(user._id, "Еда вне дома", "https://i.ibb.co/hRHLHkh/hot-dog.png", nanoid(), "MDL");
+            await expenseService.createExpenseCategory(user._id, "Проезд", "https://i.ibb.co/dm1jKFr/bus.png", nanoid(), "MDL");
+            await expenseService.createExpenseCategory(user._id, "Видеоигры", "https://i.ibb.co/nrHJYq8/joystick.png", nanoid(), "MDL");
+            await expenseService.createExpenseCategory(user._id, "Сотовая связь", "https://i.ibb.co/V2ZB0C1/hand-phones.png", nanoid(), "MDL");
 
             response.status(200).json({username: user.username, password: user.password});
         } catch (e) {
@@ -43,6 +43,7 @@ class authController {
             const tokens = tokenService.createTokens({username});
             response.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true});
             tokenService.saveToken(user.id, tokens.refreshToken);
+
             response.status(200).json({
                 status: 200,
                 data: {
