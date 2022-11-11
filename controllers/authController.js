@@ -40,8 +40,6 @@ class authController {
             const tokens = await tokenService.createTokens({username});
             await response.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true});
             
-            console.log(tokens.refreshToken)
-
             await tokenService.saveToken(user.id, tokens.refreshToken);
 
             response.status(200).json({
@@ -78,6 +76,7 @@ class authController {
 
     async refresh(request, response) {
         try {
+            console.log("need a refresh");
             const token = request.cookies.refreshToken;
             await tokenService.validateToken(token, process.env.REFRESH_SECRET);
 

@@ -9,6 +9,7 @@ import expenseService from '../services/expenseService.js';
 class transactionCategory {
     async createTransaction(request, response) {
         try {
+            console.log(request.body);
             const token = request.headers.authorization.split(' ')[1];
             const ownerId = await authService.getUserId(token);
 
