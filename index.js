@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import router from './router/router.js';
 import cookieParser from 'cookie-parser';
 dotenv.config();
-
+ 
 const _PORT = process.env.PORT || 4000;
 
 const app = express();
@@ -17,13 +17,13 @@ const corsOptions = {
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
+app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
 app.get('/', (req, res) => res.send("Vercel Backend"));
 app.use('/api', router);
-
 
 async function Start() {
     try {
