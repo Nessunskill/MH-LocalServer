@@ -12,7 +12,7 @@ const app = express();
 
 const corsOptions = {
     // origin: 'http://localhost:3000',
-    origin: 'https://moneyholder-client.vercel.app',
+    origin: 'https://moneyholder.vercel.app/login',
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
