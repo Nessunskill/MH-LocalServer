@@ -12,16 +12,18 @@ const app = express();
 
 const corsOptions = {
     // origin: 'http://localhost:3000',
-    origin: 'https://moneyholder.vercel.app',
+    origin: 'https://moneyholder-client.vercel.app',
     credentials: true,
-    optionsSuccessStatus: 200,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/', (req, res) => res.send("Vercel Backend"));
 app.use('/api', router);
+
 
 async function Start() {
     try {
