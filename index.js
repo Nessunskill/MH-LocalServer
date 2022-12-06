@@ -11,8 +11,8 @@ const _PORT = process.env.PORT || 4000;
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    // origin: 'https://moneyholder.vercel.app',
+    // origin: 'http://localhost:3000',
+    origin: 'https://moneyholder.vercel.app',
     credentials: true,
     optionsSuccessStatus: 200,
   }
